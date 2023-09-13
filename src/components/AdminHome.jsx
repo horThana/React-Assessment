@@ -1,18 +1,61 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "./Navbar";
-import UserHome from "./UserHome";
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 const AdminHome = () => {
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
   const [position, setPosition] = useState("");
+  const [employees, setEmployees] = useState([]);
+  const [reload, setReload] = useState(false);
 
-  const handleSave = () => {
-    console.log("Name:", name);
-    console.log("Last Name:", lastName);
-    console.log("Position:", position);
-  }
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const response = await axios.get(
+          "https://jsd5-mock-backend.onrender.com/members"
+        );
+        setEmployees(response.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    getData();
+  }, [reload]);
+
+  const createData = async () => {
+    try {
+      const requestData = {
+        name: name,
+        lastname: lastName,
+        position: position,
+      };
+
+      const response = await axios.post(
+        "https://jsd5-mock-backend.onrender.com/members",
+        requestData
+      );
+
+      if (response.status === 200) {
+        setReload(!reload);
+        setName("");
+        setLastName("");
+        setPosition("");
+      }
+    } catch (error) {
+      console.error("Error creating data:", error);
+    }
+  };
+
+  const handleDelete = (index) => {
+    const updatedEmployees = [...employees];
+    updatedEmployees.splice(index, 1);
+    setEmployees(updatedEmployees);
+  };
+
+  
 
   return (
     <>
@@ -23,22 +66,38 @@ const AdminHome = () => {
         Admin Home Sector
       </Link>
       <Link to="/UserHome" className="list">
-        User Home  Sector
+        User Home Sector
       </Link>
+
       <form>
+        <h2>Create User Here</h2>
         <div>
-          <label>Name:</label>
-          <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
+          <input
+            type="text"
+            placeholder="Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
         </div>
         <div>
-          <label>Last Name:</label>
-          <input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} />
+          <input
+            type="text"
+            placeholder="LastName"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+          />
         </div>
         <div>
-          <label>Position:</label>
-          <input type="text" value={position} onChange={(e) => setPosition(e.target.value)} />
+          <input
+            type="text"
+            placeholder="Position"
+            value={position}
+            onChange={(e) => setPosition(e.target.value)}
+          />
         </div>
-        <button type="button" onClick={handleSave}>Save</button>
+        <button type="button" onClick={createData}>
+          Save
+        </button>
       </form>
 
       <table>
@@ -51,25 +110,21 @@ const AdminHome = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>John</td>
-            <td>Doe</td>
-            <td>Manager</td>
-          </tr>
-          <tr>
-            <td>Jane</td>
-            <td>Smith</td>
-            <td>Developer</td>
-          </tr>
-          <tr>
-            <td>Bob</td>
-            <td>Johnson</td>
-            <td>Designer</td>
-          </tr>
-        </tbody>
+          {employees.map((employee) => (
+              <tr key={employee.member_id}> 
+                <td>{employee.name}</td>
+                <td>{employee.lastname}</td>
+                <td>{employee.position}</td>
+                <td>
+        <button onClick={() => handleDelete(employee.member_id)}>Delete</button>
+      </td>
+    </tr>
+  ))}
+</tbody>
+
       </table>
     </>
   );
-}
+};
 
 export default AdminHome;

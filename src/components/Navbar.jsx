@@ -18,7 +18,7 @@ const Navbar = () => {
           <li className="nav-item">About</li>
           <li className="nav-item">
             {/* Use Link to navigate to the Owner page */}
-            <Link to="/owner" className="list">
+            <Link to="/Owner" className="list">
               Owner
             </Link>
           </li>

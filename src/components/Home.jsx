@@ -7,12 +7,8 @@ const Home = () => {
     <>
     <Navbar/>
       <h1>Generation Thailand</h1>
-      <Link to="/AdminHome" className="list">
-        Admin Home Sector
-      </Link>
-      <Link to="/UserHome" className="list">
-        User Home Sector 
-      </Link>
+      <Link to="/AdminHome" className="list">Admin Home Sector</Link>
+      <Link to="/UserHome" className="list">User Home Sector </Link>
     </>
   );
 }

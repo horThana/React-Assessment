@@ -8,11 +8,11 @@ import {
 }from "react-router-dom"
 
 //// Component
-import AdminHome from './components/AdminHome.jsx'
-import UserHome from './components/UserHome.jsx'
-import Owner from './components/owner.jsx'
-import Home from './components/Home.jsx'
-import Navbar from './components/Navbar.jsx'
+import AdminHome from './components/AdminHome.jsx';
+import UserHome from './components/UserHome.jsx';
+import Owner from './components/Owner.jsx';
+import Home from './components/Home.jsx';
+import Navbar from './components/Navbar.jsx';
 
 
 const router = createBrowserRouter([
