@@ -10,14 +10,11 @@ const Navbar = () => {
       <nav className="navbar">
         <ul className="nav-list">
           <li className="nav-item">
-            {/* Use Link to navigate to the Home page */}
             <Link to="/Home" className="list">
               Home
             </Link>
           </li>
-          <li className="nav-item">About</li>
           <li className="nav-item">
-            {/* Use Link to navigate to the Owner page */}
             <Link to="/Owner" className="list">
               Owner
             </Link>

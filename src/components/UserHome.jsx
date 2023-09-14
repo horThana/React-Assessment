@@ -41,18 +41,20 @@ const userHome = () => {
             <th>Name</th>
             <th>Last Name</th>
             <th>Position</th>
-            <th>Action</th>
           </tr>
         </thead>
         <tbody>
-          {employees.map((employee, index) => (
-            <tr key={index}>
-              <td>{employee.name}</td>
-              <td>{employee.lastname}</td>
-              <td>{employee.position}</td>
-            </tr>
-          ))}
-        </tbody>
+          {employees.map((employee) => (
+              <tr key={employee.member_id}> 
+                <td>{employee.name}</td>
+                <td>{employee.lastname}</td>
+                <td>{employee.position}</td>
+                <td>        
+      </td>
+    </tr>
+  ))}
+</tbody>
+
       </table>
     </>
   );
